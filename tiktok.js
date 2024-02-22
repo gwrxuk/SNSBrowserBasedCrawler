@@ -1,8 +1,9 @@
 const GetInfo = class {
-    constructor(element) {
+    constructor(element, keyword) {
         this.ele = element.children[0].children[0].children[0].children[0];
+		this.keyword = keyword;
         this.ele.click()
-
+		
         setTimeout(this.clickReplies.bind(this), 5000);
     }
 
@@ -13,8 +14,10 @@ const GetInfo = class {
     }
 
     downloadFile() {
-        this.download(document.querySelector('[data-e2e="search-comment-container"]').innerText, window.location.href + ".txt", "text/plain");
-        this.download(document.querySelector('[data-e2e="search-comment-container"]').innerHTML, window.location.href + ".html", "text/html");
+		if (document.querySelector('[data-e2e="search-comment-container"]').innerText.includes(this.keyword)){
+			this.download(document.querySelector('[data-e2e="search-comment-container"]').innerText, window.location.href + ".txt", "text/plain");
+			this.download(document.querySelector('[data-e2e="search-comment-container"]').innerHTML, window.location.href + ".html", "text/html");
+		}
         setTimeout(function() {
             if (document.querySelector('button[data-e2e="browse-close"]')) {
                 document.querySelector('button[data-e2e="browse-close"]').click();
@@ -46,14 +49,14 @@ const GetInfo = class {
 
 var list = document.querySelector('[data-e2e="search_top-item-list"]');
 var count = 0;
-
+var keyword = "黃";
 var queue = [];
 setInterval(function() {
     if (!document.querySelector('button[data-e2e="browse-close"]')) {
 
         window.scrollTo(0, document.body.scrollHeight);
         list = document.querySelector('[data-e2e="search_top-item-list"]');
-        let p = new GetInfo(list.children[count]);
+        let p = new GetInfo(list.children[count], keyword);
         count++;
     }
 }, 4000);
