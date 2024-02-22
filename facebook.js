@@ -81,7 +81,7 @@ const GetArticles = class {
                 setTimeout(function() {
                     let data = theWindow.document.querySelector("div[role=article]").innerHTML;
                     let type = "text/html";
-                    filename = theWindow.location.href + ".html";
+                    let filename = theWindow.location.href + ".html";
 
                     var file = new Blob([data], {
                         type: type
@@ -90,7 +90,7 @@ const GetArticles = class {
                         window.navigator.msSaveOrOpenBlob(file, filename);
                     else { // Others
                         var a = document.createElement("a"),
-                            url = URL.createObjectURL(file);
+                        url = URL.createObjectURL(file);
                         a.href = url;
                         a.download = filename;
                         document.body.appendChild(a);
